@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "heangdl",
   "builds": [
     {
       "src": "index.html",
