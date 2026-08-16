@@ -1,9 +1,16 @@
 {
   "version": 2,
-  "name": "heangdl",
   "builds": [
     {
       "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/*.png",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/*.apk",
       "use": "@vercel/static"
     }
   ],
@@ -13,50 +20,21 @@
       "dest": "/index.html"
     },
     {
-      "src": "/heangdl.apk",
-      "dest": "/heangdl.apk",
-      "headers": {
-        "Content-Type": "application/vnd.android.package-archive",
-        "Content-Disposition": "attachment; filename=\"heangdl.apk\""
-      }
+      "src": "/(.*\\.png)",
+      "dest": "/public/$1"
     },
     {
-      "src": "/heangdl.png",
-      "dest": "/heangdl.png"
+      "src": "/(.*\\.apk)",
+      "dest": "/public/$1"
     },
     {
-      "src": "/icons8-download-32.png",
-      "dest": "/icons8-download-32.png"
+      "src": "/(.*)",
+      "dest": "/public/$1"
     }
   ],
   "headers": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "geolocation=(), microphone=(), camera=()"
-        }
-      ]
-    },
-    {
-      "source": "/heangdl.apk",
+      "source": "/public/heangdl.apk",
       "headers": [
         {
           "key": "Content-Type",
@@ -69,7 +47,7 @@
       ]
     },
     {
-      "source": "/(.*\\.(png|jpg|jpeg|gif|svg|ico|webp))",
+      "source": "/public/(.*\\.(png|jpg|jpeg|gif|svg|ico|webp))",
       "headers": [
         {
           "key": "Cache-Control",
